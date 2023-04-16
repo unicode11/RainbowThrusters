@@ -53,7 +53,7 @@ namespace Script1
             foreach (Sandbox.ModAPI.Ingame.IMyThrust thrust in thrusters)
             {
 
-                if (thrust.GetValue<Color>("FlameIdleColorOverride") != E)
+                if (thrust.GetValue<Color>("FlameIdleColorOverride") != E) // 
                 {
                     thrust.SetValue("FlameIdleColorOverride", new Color(ra.Next(1, 256), ra.Next(1, 256), ra.Next(1, 256)));
                 }
