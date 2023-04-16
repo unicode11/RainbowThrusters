@@ -3,7 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U_MENYA_SDOXLA_MAT", "U_MENYA_SDOXLA_MAT.csproj", "{EAC66453-5FE4-495C-BA5B-75103E2AB4CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "U_MENYA_SDOXLA_MAT", "U_MENYA_SDOXLA_MAT.csproj", "{EAC66453-5FE4-495C-BA5B-75103E2AB4CE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Элементы решения", "Элементы решения", "{3F7E9D0F-F2E8-4BEE-B48B-7421C4610320}"
+	ProjectSection(SolutionItems) = preProject
+		edsfiugxdsfikg90dfongdijgmio.cs = edsfiugxdsfikg90dfongdijgmio.cs
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

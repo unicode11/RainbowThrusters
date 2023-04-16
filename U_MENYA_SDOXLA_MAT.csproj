@@ -8,6 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Reference Include="RecolorableThrusters">
+      <HintPath>RecolorableThrusters.dll</HintPath>
+    </Reference>
     <Reference Include="Sandbox.Common">
       <HintPath>F:\Steam\steamapps\common\SpaceEngineers\Bin64\Sandbox.Common.dll</HintPath>
     </Reference>

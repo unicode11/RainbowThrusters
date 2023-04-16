@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Text;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,9 +15,10 @@ using VRage.Game.ModAPI.Ingame;
 using SpaceEngineers.Game.ModAPI.Ingame;
 using VRage.Utils;
 using Sandbox.ModAPI;
-
-
-
+using DarkVault.RecolorableThrusters;
+using Sandbox.Game.Gui;
+using System.Runtime.CompilerServices;
+using VRage.Library.Utils;
 
 namespace Script1
 {
@@ -26,46 +28,39 @@ namespace Script1
         // COPY FROM HERE
 
 
-
-
-
+        Random ra = new Random();
         List<Sandbox.ModAPI.Ingame.IMyThrust> thrusters = new List<Sandbox.ModAPI.Ingame.IMyThrust>();
-        public Program()
+        public static void Main()
         {
-
         }
 
 
-        public void Main(string args)
-        // The main entry point of the script, invoked every time
-        // one of the programmable block's Run actions are invoked,
-        // or the script updates itself. The updateSource argument
-        // describes where the update came from. Be aware that the
-        // updateSource is a  bitfield  and might contain more than
-        // one update type.
-
-
+        public void Main(string args)        
         {
-            var myColor = new Color(255, 255, 255, 255);
+            // Vars are in Color(RED, GREEN, BLUE, ALPHA(keep at 255)) format)
+            var E       = new Color(70, 104, 166, 255); // exists to overwrite every thruster
+            var RED     = new Color(255, 0, 0, 255);
+            var ORANGE  = new Color(255, 120, 0, 255);
+            var YELLOW  = new Color(255, 255, 0, 255);
+            var GREEN   = new Color(0, 255, 0, 255);
+            var CYAN    = new Color(0, 255, 255, 255);
+            var BLUE    = new Color(0, 0, 255, 255);
+            var PURPLE  = new Color(120, 0, 255, 255);
+
+
+
             GridTerminalSystem.GetBlocksOfType(thrusters);
             foreach (Sandbox.ModAPI.Ingame.IMyThrust thrust in thrusters)
             {
-                thrust.Enabled = false;
-            }
-                
-            // Определение уже имеющегося цвета
-            // foreach (IMyInteriorLight lamp in thrusters)
-            // {
-            //    if (lamp.Color.R == 255 && lamp.Color.G == 255 && lamp.Color.B == 255) lamp.Color = new Color(lamp.Color.R, lamp.Color.G, lamp.Color.B);
-              
-            // }
 
+                if (thrust.GetValue<Color>("FlameIdleColorOverride") != E)
+                {
+                    thrust.SetValue("FlameIdleColorOverride", new Color(ra.Next(1, 256), ra.Next(1, 256), ra.Next(1, 256)));
+                }
+            }                
         }
 
 
         // TO HERE
-
-
-        //------------END--------------
     }
 }
