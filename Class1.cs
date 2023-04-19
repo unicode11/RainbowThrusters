@@ -24,7 +24,7 @@ namespace Script1
 {
     public sealed class Program : MyGridProgram
     {
-        
+        // To change modes - write "true" on which mode you need to enable and write "false" on what you want disabled
         bool COLORS = true ; // To modify colors - scroll down until "var" section
         bool CLOWN  = false ;
 
