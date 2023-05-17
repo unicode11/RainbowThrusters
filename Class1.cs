@@ -3,6 +3,7 @@ using System.Linq;
 using System.Text;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using VRageMath;
 using VRage.Game;
 using Sandbox.ModAPI.Interfaces;
@@ -19,14 +20,47 @@ using System.Runtime.CompilerServices;
 using VRage.Library.Utils;
 using VRage.Game.ObjectBuilders.VisualScripting;
 using VRage;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Script1
 {
-    public sealed class Program : MyGridProgram
+    public sealed class MyClass : MyGridProgram
 
     {
+        // Colros are in new Color(RED, GREEN, BLUE, ALPHA(keep at 255) format)
+        // To add new color - put your color in RGBA format (look one line up), add it as new Color
+        
+        VRageMath.Color[] color_array =
+        {
+
+            /* RED */    (new Color(255, 0, 0, 255)),
+            /* BLUE */   (new Color(0, 0, 255, 255)),
+            /* GREEN */  (new Color(0, 255, 0, 255)),
+            /* ORANGE */ (new Color(255, 120, 0, 255)), 
+            /* YELLOW */ (new Color(255, 255, 0, 255)),
+            /* CYAN */   (new Color(0, 255, 255, 255)),
+            /* PURPLE */ (new Color(120, 0, 255, 255))
+        };
+
+        // NO EDIT BELOW THIS LINE
+
+
+
+        // можно сделать так, шобы челик указывал какую сторону окрашивать в поле Argument (типа COLOR FORWARD; CLOWN BACK; CLOWN UP)
+
+
         Random ra = new Random();
         List<IMyThrust> thrusters = new List<IMyThrust>();
+
+
+
+        private void Colorfy()
+        {
+            foreach (IMyThrust thrust in thrusters)
+                thrust.SetValue("FlameIdleColorOverride", color_array[ra.Next(0, color_array.Length)]);
+            Echo("\nDONE");
+        }
+
 
         private void Clownify()
         {
@@ -35,27 +69,17 @@ namespace Script1
             Echo("\nDONE");
         }
 
-        private void Colorfy()
+        
+        private enum Side
         {
-            // Colros are in Color(RED, GREEN, BLUE, ALPHA(keep at 255) format)
-            // To add new color - put your color in RGBA format (look one line up), add it as new var, put name in a "color_array"
-
-            Color RED = new Color(255, 0, 0, 255);
-            Color ORANGE = new Color(255, 120, 0, 255);
-            Color YELLOW = new Color(255, 255, 0, 255);
-            Color GREEN = new Color(0, 255, 0, 255);
-            Color CYAN = new Color(0, 255, 255, 255);
-            Color BLUE = new Color(0, 0, 255, 255);
-            Color PURPLE = new Color(120, 0, 255, 255);
-
-
-            VRageMath.Color[] color_array =
-            { RED, ORANGE, YELLOW, GREEN, CYAN, BLUE, PURPLE };
-
-            foreach (IMyThrust thrust in thrusters)
-                thrust.SetValue("FlameIdleColorOverride", color_array[ra.Next(0, color_array.Length)]);
-            Echo("\nDONE");
+            FORWARD,
+            BACK,
+            LEFT,
+            RIGHT,
+            UP,
+            DOWN
         }
+
         private enum Mode
         {
             COLOR,
@@ -65,31 +89,31 @@ namespace Script1
         private void GetThrusters()
         {
             GridTerminalSystem.GetBlocksOfType(thrusters);
+            GridTerminalSystem.GetBlockWithName("Thruster ");
         }
 
         public void Main(string argument)
         {
-            // NO EDIT BELOW THIS LINE !!!
-
             Runtime.UpdateFrequency = UpdateFrequency.Update100;
-
-            Echo ("Set mode by typing it into \"Argument\" section of Programmable Block.\nAvailable modes: ");
-            foreach (string value in Enum.GetNames(typeof(Mode)))
-            {
-                Echo(value);
-            }
-
-
             GetThrusters();
-            if (argument == (Mode.CLOWN).ToString())
-            {
-                Clownify();
-            }
 
-            if (argument == (Mode.COLOR).ToString())
-            {
-                Colorfy();
-            }
+                if (argument == (Mode.CLOWN).ToString())
+                {
+                    Clownify();
+                }
+
+                if (argument == (Mode.COLOR).ToString())
+                {
+                    Colorfy();
+                }
+                else
+                {
+                    Echo("Set mode by typing it into \"Argument\" section of Programmable Block.\nAvailable modes: ");
+                    foreach (string value in Enum.GetNames(typeof(Mode)))
+                        Echo(value);
+                }
+
+
         }
 
 
